@@ -51,3 +51,9 @@ variable "sqs_failure_feedback_role_arn" {
   type        = string
   default     = null
 }
+
+variable "kms_key_sns_alias_arn" {
+  description = "The ID(ARN) of an AWS-managed customer master key (CMK) for Amazon SQS or a custom CMK"
+  type        = string
+  default     = null
+}

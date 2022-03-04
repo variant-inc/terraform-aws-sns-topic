@@ -1,7 +1,3 @@
-data "aws_kms_key" "sns_alias" {
-  key_id = "alias/ops/sns"
-}
-
 module "sns_topic" {
   source                           = "terraform-aws-modules/sns/aws"
   version                          = "~> 3.0"
@@ -14,9 +10,10 @@ module "sns_topic" {
   sqs_success_feedback_role_arn    = var.sqs_success_feedback_role_arn
   sqs_success_feedback_sample_rate = var.sqs_success_feedback_sample_rate
   sqs_failure_feedback_role_arn    = var.sqs_failure_feedback_role_arn
-  kms_master_key_id                = data.aws_kms_key.sns_alias.arn
+  kms_master_key_id                = var.kms_key_sns_alias_arn
 }
 
+# tflint-ignore: terraform_unused_declarations
 data "aws_iam_policy_document" "sns_publish_policy" {
   policy_id = "SNSTopicsPublish"
   version   = "2012-10-17"
@@ -30,7 +27,7 @@ data "aws_iam_policy_document" "sns_publish_policy" {
   }
   statement {
     effect    = "Allow"
-    resources = [data.aws_kms_key.sns_alias.arn]
+    resources = [var.kms_key_sns_alias_arn]
     actions = [
       "kms:GenerateDataKey",
       "kms:Decrypt"
