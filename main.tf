@@ -11,19 +11,17 @@ module "sns_topic" {
   sqs_success_feedback_sample_rate = var.sqs_success_feedback_sample_rate
   sqs_failure_feedback_role_arn    = var.sqs_failure_feedback_role_arn
   kms_master_key_id                = var.kms_key_sns_alias_arn
+  tags                             = var.tags
 }
 
-# tflint-ignore: terraform_unused_declarations
+
 data "aws_iam_policy_document" "sns_publish_policy" {
   policy_id = "SNSTopicsPublish"
   version   = "2012-10-17"
-  dynamic "statement" {
-    for_each = module.sns_topic
-    content {
-      effect    = "Allow"
-      resources = [module.sns_topic.sns_topic_arn]
-      actions   = ["sns:ListSubscriptionsByTopic", "sns:Publish"]
-    }
+  statement {
+    effect    = "Allow"
+    resources = [module.sns_topic.sns_topic_arn]
+    actions   = ["sns:ListSubscriptionsByTopic", "sns:Publish"]
   }
   statement {
     effect    = "Allow"

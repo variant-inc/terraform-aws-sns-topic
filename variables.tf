@@ -3,7 +3,6 @@ variable "aws_resource_name_prefix" {
   description = "Prefix of team name to be applied to created resources."
 }
 
-
 variable "name" {
   type        = string
   description = "The name of the SNS topic to create"
@@ -56,4 +55,10 @@ variable "kms_key_sns_alias_arn" {
   description = "The ID(ARN) of an AWS-managed customer master key (CMK) for Amazon SQS or a custom CMK"
   type        = string
   default     = null
+}
+
+variable "tags" {
+  description = "A mapping of tags to assign to all resources"
+  type        = map(string)
+  default     = {}
 }
