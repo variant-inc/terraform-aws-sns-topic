@@ -1,8 +1,3 @@
-variable "aws_resource_name_prefix" {
-  type        = string
-  description = "Prefix of team name to be applied to created resources."
-}
-
 variable "name" {
   type        = string
   description = "The name of the SNS topic to create"

@@ -1,8 +1,3 @@
-variable "aws_resource_name_prefix" {
-  type        = string
-  description = "Prefix of team name to be applied to created resources."
-}
-
 variable "name" {
   type        = string
   description = "The name of the SNS topic to create"
@@ -44,14 +39,13 @@ variable "sqs_success_feedback_sample_rate" {
   default     = null
 }
 
-
 variable "sqs_failure_feedback_role_arn" {
   description = "IAM role for failure feedback"
   type        = string
   default     = null
 }
 
-variable "kms_key_sns_alias_arn" {
+variable "kms_key_sns_arn" {
   description = "The ID(ARN) of an AWS-managed customer master key (CMK) for Amazon SQS or a custom CMK"
   type        = string
   default     = null
