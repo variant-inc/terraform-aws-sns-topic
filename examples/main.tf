@@ -1,12 +1,13 @@
-data "aws_kms_key" "sns_alias" {
+data "aws_kms_key" "sns" {
   key_id = "alias/ops/sns"
 }
 module "sns_topic" {
   source = "../"
 
-  name                     = var.name
-  display_name             = var.display_name
-  aws_resource_name_prefix = var.aws_resource_name_prefix
-  kms_key_sns_alias_arn    = data.aws_kms_key.sns_alias.arn
-  tags                     = var.tags
+  name            = "dpl-test-topic-naveen"
+  display_name    = "This is test"
+  kms_key_sns_arn = data.aws_kms_key.sns.arn
+  tags = {
+    "owner" : "naveen"
+  }
 }
