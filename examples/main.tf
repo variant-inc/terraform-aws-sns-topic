@@ -4,8 +4,10 @@ data "aws_kms_key" "sns" {
 module "sns_topic" {
   source = "../"
 
-  name            = var.name
-  display_name    = var.display_name
+  name            = "dpl-test-topic-naveen"
+  display_name    = "This is test"
   kms_key_sns_arn = data.aws_kms_key.sns.arn
-  tags            = var.tags
+  tags = "tags" : {
+    "owner" : "naveen"
+  }
 }
